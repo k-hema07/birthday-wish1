@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Unlock ❤️{% endblock %}
+{% block bodyclass %}lockpage{% endblock %}
+{% block content %}
+<main class="lock d-flex flex-column align-items-center justify-content-center text-center px-3">
+  <div class="lock-heart" aria-hidden="true">❤</div>
+  <h1 class="script">Hey {{ c.BOY }}…</h1>
+  <p class="soft">Unakkaga oru chinna surprise iruku 🎁<br>Secret number potta dhaan open aagum</p>
+  <form method="post" class="lock-form {% if error %}shake{% endif %}" autocomplete="off">
+    {% csrf_token %}
+    <input type="password" name="password" inputmode="numeric" class="form-control lock-input" placeholder="• • •" aria-label="Password" autofocus required>
+    <button class="btn btn-love unlock-btn" type="submit"><span class="uic" aria-hidden="true">🔒</span> Unlock</button>
+  </form>
+  {% if error %}<p class="err">Thappu da 😜 Innoru thadava try pannu ❤️</p>{% endif %}
+  <p class="hint">Hint: {{ c.LOCK_HINT }}</p>
+</main>
+<script>(function(){var b=document.querySelector('.unlock-btn'),i=b.querySelector('.uic');function o(){i.textContent='🔓'}function l(){i.textContent='🔒'}b.addEventListener('mouseenter',o);b.addEventListener('focus',o);b.addEventListener('touchstart',o,{passive:true});b.addEventListener('mouseleave',l);b.addEventListener('blur',l);document.querySelector('.lock-input').addEventListener('input',function(){this.value.length?o():l()});})();</script>
+{% endblock %}

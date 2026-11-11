@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div id="splash" class="splash d-flex flex-column align-items-center justify-content-center text-center">
+  <div class="lock-heart" aria-hidden="true">❤</div>
+  <h1 class="script big">Welcome Chlo ❤️</h1>
+  <p class="soft">{{ c.BOY }}, indha website unakku mattum tha da chloo💕</p>
+  <button id="enter" class="btn btn-love mt-3">Open pannu da🎈</button>
+</div>
+
+<main id="page" class="page">
+  <section class="hero text-center">
+    <p class="soft top">Happy Birthday chloo</p>
+    <h1 class="script name">{{ c.BOY }}</h1>
+    <div class="age-wrap">
+      <img class="hero-photo" src="{% static c.HERO_PHOTO %}" alt="{{ c.BOY }} and {{ c.GIRL }}">
+      <div class="age">{{ c.TURNING_AGE }}</div>
+    </div>
+    <p class="soft">{{ c.BIRTHDAY_TEXT }} 🎈</p>
+    <div id="count" class="count" data-target="{{ c.BIRTHDAY_ISO }}"></div>
+    <a href="#cake" class="scroll">scroll pannu da❤️</a>
+  </section>
+
+  <section id="cake" class="sec text-center">
+    <h2 class="script">Candle-a oothu pattu🎂</h2>
+    <div class="cake" id="cakeBox">
+      <div class="candle"><i class="flame"></i></div>
+      <div class="candle c2"><i class="flame"></i></div>
+      <div class="candle c3"><i class="flame"></i></div>
+      <div class="tier t1"></div><div class="tier t2"></div><div class="tier t3"></div>
+    </div>
+    <button id="blow" class="btn btn-love">Blow 🎉</button>
+    <p id="cakeMsg" class="soft cakemsg">Oru wish pannitu candle-a oothu…</p>
+  </section>
+
+  <section class="sec note-sec gated">
+    <div class="note">
+      <h2 class="script">{{ c.NOTE_TITLE }}</h2>
+      {% for line in c.NOTE %}<p>{{ line }}</p>{% endfor %}
+      <p class="sign script">{{ c.SIGN }}</p>
+    </div>
+  </section>
+
+  <section class="sec text-center gated">
+    <h2 class="script">Unna ethukku pudikkum? 🥰</h2>
+    <div class="reasons">
+      {% for r in c.REASONS %}<span class="reason">{{ r }}</span>{% endfor %}
+    </div>
+  </section>
+
+  <section id="waiting" class="sec text-center">
+    <div class="waitbox">
+      <div class="lock-heart" aria-hidden="true">🔒</div>
+      <h2 class="script">Surprises ready-a irukku 🎁</h2>
+      <p class="soft">12 mani aana dhaan notes-um surprises-um open aagum 💕<br>Countdown mudiyum varaikum wait pannu da chloo 😘</p>
+    </div>
+  </section>
+
+  <section id="surprise" class="sec text-center gated">
+    <h2 class="script">Unakkaga 3 Surprises 🎁💕</h2>
+    <p class="soft">Ovvoru gift-um tap pannu 🥰 ore click-la 3 photos varum!</p>
+    <div class="boxes">
+    {% for s in c.SETS %}
+      <article class="sset">
+        <button type="button" class="giftbig" aria-expanded="false">
+          <span class="gbox" aria-hidden="true">🎁</span>
+          <span class="gtxt">Surprise {{ forloop.counter }}</span>
+          <small>tap pannu 💖</small>
+        </button>
+        <div class="reveal">
+          <div class="shots">
+            {% for p in s.imgs %}
+            <figure class="polaroid" data-bs-toggle="modal" data-bs-target="#viewer" data-src="{% static p.src %}" data-cap="{{ p.cap }}">
+              <img src="{% static p.src %}" alt="{{ p.cap }}" loading="lazy"><figcaption>{{ p.cap }}</figcaption>
+            </figure>{% endfor %}
+          </div>
+          <div class="lnote">
+            <span class="pin" aria-hidden="true">📌</span>
+            <h3 class="script">{{ s.title }}</h3>
+            <p>{{ s.note }}</p>
+            <div class="nh" aria-hidden="true">💕 💖 💗 💞 💕</div>
+          </div>
+        </div>
+      </article>
+    {% endfor %}
+    </div>
+    <p id="progress" class="soft prog">0 / {{ c.SETS|length }} surprises open aachu 🎁</p>
+    <div id="finale" class="finale">
+      <div class="nh big-h" aria-hidden="true">💖💕💗💞💝</div>
+      <h2 class="script">Ellaam paathuttiya? 🥰</h2>
+      <p>Indha 3 surprise-um en manasula irundhu dhaan da, Kathir ❤️ Always yours — Hema 💋</p>
+    </div>
+  </section>
+
+  <section class="sec text-center end">
+    <h2 class="script big">I love you, {{ c.BOY }} ❤️</h2>
+    <p class="soft">Forever & always — {{ c.GIRL }}</p>
+    <button id="party" class="btn btn-love">Innum konjam party 🎊</button>
+    <p><a class="tiny" href="{% url 'logout' %}">lock pannu 🔒</a></p>
+  </section>
+</main>
+
+<div class="modal fade" id="viewer" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"><div class="modal-content viewer">
+    <button type="button" class="btn-close btn-close-white ms-auto m-2" data-bs-dismiss="modal" aria-label="Close"></button>
+    <img id="viewerImg" alt=""><p id="viewerCap" class="soft"></p>
+  </div></div>
+</div>
+{% endblock %}
